@@ -1,4 +1,4 @@
 # WebdriverIO Project
 ```
-This project is for web, mobile and api testing
+This projec supports for mobile, web, and api automation. To implement the web, api and mobile automation scripts , created the separate folder under tests folder
 ```
