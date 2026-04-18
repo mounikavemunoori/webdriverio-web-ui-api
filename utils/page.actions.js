@@ -84,6 +84,101 @@ class PageActions {
             timeout: browser.options.waitforTimeout
         })
     }
+
+    /**
+     * @Desc Inputs the value to the elements
+     * @param element
+     * @param value
+     * @return None
+    */
+    async setInputField(element, value) {
+        await element.waitForClickable();
+        await element.setValue(value);
+    }
+
+    /**
+ * Gets date format
+ * @param year
+ * @param month
+ * @param date
+ * @returns {Promise<string> | string}
+ */
+    async datePicker(year, month, date){
+        // Define the desired date
+        const selectedDate = new Date(year, month, date); // September is 8, because months are 0-indexed in JavaScript
+
+        // Format the date as "Thu Sep 26 2024"
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const formattedDate = selectedDate.toLocaleDateString('en-US', options).replace(/,/g, '');
+
+        console.log(formattedDate); // Output: Thu Sep 26 2024
+        return formattedDate
+    }
+
+    /**
+     * @Desc Waits for element disabled
+     * @param element
+     * @return None
+     */
+    async waitForElementDisplayed(element) {
+        await browser.waitUntil(async () => {
+            return await element.isDisplayed();
+        }, {
+            timeout: browser.options.waitforTimeout,
+            timeoutMsg: `The following element is not displayed: ${await element.selector}`,
+            interval: 500,
+        });
+    }
+
+    /**
+     * Wait until element disappears from UI
+     * @param {WebdriverIO.Element} element
+     * @param {number} timeout
+     */
+    async waitForElementToDisappear(element, timeout = browser.options.waitforTimeout) {
+
+        await browser.waitUntil(
+            async () => {
+                const isExisting = await element.isExisting();
+                const isDisplayed = isExisting ? await element.isDisplayed() : false;
+
+                return !isExisting || !isDisplayed;
+            },
+            {
+                timeout: timeout,
+                timeoutMsg: 'Element did not disappear within timeout'
+            }
+        );
+    }
+
+    async getElementCSSProperty(element, property) {
+        return await element.getAttribute(property);
+    }
+
+    async switchToChildWindow(parentWindow){
+        const allWindows = await browser.getWindowHandles();
+        if(allWindows.length > 1){
+            for(let window of allWindows){
+                if(window !== parentWindow){
+                    await browser.switchToWindow(window);
+                    console.log('Switched to separate window');
+                    break;
+                }
+            }
+        } else {
+            console.log('Same window, no need to switch');
+        }
+    }
+
+    /**
+    * Performs mouse hover on a given element
+    * @param {WebdriverIO.Element|string} element - Element or selector
+    */
+    async mouseHoverOnElement(element) {
+        await element.waitForDisplayed()
+        await element.moveTo()
+    }
+
 }
 
 export default new PageActions()

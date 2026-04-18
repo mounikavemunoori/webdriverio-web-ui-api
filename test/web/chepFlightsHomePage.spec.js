@@ -1,7 +1,7 @@
 import homePage from '../../pageObjects/home.page.js';
 import {assert} from 'chai';    
 
-describe('Web - Chep flights', ()=>{
+describe('Web - Cheap flights Home Page', ()=>{
 
     beforeEach(async () => {
         await homePage.openCheapFlightsHomePage();

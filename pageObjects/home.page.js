@@ -7,7 +7,7 @@ class HomePage extends BasePage {
     get modalWelcomeText() { return $('.unified-login h1')} 
     get modalPopup() { return $$('.unified-login')}
     get modalText() { return $('.unified-login p') }
-    get modalCloseButton() { return $('button[aria-label="Close"]')}
+    get modalCloseButton() { return $('[role="dialog"] button[aria-label="Close"]')}
     loginOptions() { return $$('.unified-login button') }
     loginOption(option) { return $(`//div[contains(text(), "${option}")]`) }
 
