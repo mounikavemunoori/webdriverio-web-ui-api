@@ -15,6 +15,7 @@ class SearchPage {
     get loadingSpinnerText() { return $('//*[contains(text(), "Loading")]')}
     get bookNowText() { return $('//div[@role="region"]//div[contains(@class, "message")]')}
     get searchResults() { return $$('//ol[contains(@class, "list")]')}
+    // get searchResults() { return $$('//div[contains(@aria-label,"Result item")]') }
     get selectedTravelersCount(){ return $('(//header//div[contains(@class, "travelers")])[2]') }
     get tootTipElement() { return $('[role="tooltip"]')}
     get errorPopup() { return $('//div[@role="dialog" and @aria-modal="true"]//div[contains(@class, "popup")]') }
@@ -36,9 +37,6 @@ class SearchPage {
     }
 
     async enterDepartureLocation(location) {
-        // if(await pageActions.isElementDisplayed(this.fromOriginInputClearButton)) {
-        //     await pageActions.clickElement(this.fromOriginInputClearButton);
-        // }
         await this.clickOnFromOriginInputClearButton()
         await pageActions.clickElement(this.fromOriginInput);
         await pageActions.setInputField(this.fromOriginInput, location);
@@ -76,11 +74,6 @@ class SearchPage {
         await pageActions.waitForElementDisplayed(this.travelersDropdown)   
 
     }
-
-    // async incrementTravellersCount(travellerType) {
-    //     await pageActions.waitForElementClickable(this.travellersIncrementButton(travellerType));
-    //     await pageActions.clickElement(this.travellersIncrementButton(travellerType));
-    // }
 
     async incrementTravellersCount(travellerType, count) {
         await pageActions.waitForElementClickable(this.travellersIncrementButton(travellerType));

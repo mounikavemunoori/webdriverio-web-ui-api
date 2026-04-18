@@ -8,3 +8,5 @@ Make sure you have Node.js installed on your machine. webdriverio requires Node.
 node -v
 
 ```
+
+chrome://inspect/#devices

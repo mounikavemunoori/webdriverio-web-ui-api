@@ -4,8 +4,6 @@ import supertest from 'supertest';
 import jsonData from '../../testData/bookingData.json' 
 import apiUtils from '../../utils/apiUtils';
 
-
-
 describe('Create Booking API Tests', async()=> {
     
     let token;

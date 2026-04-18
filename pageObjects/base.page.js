@@ -1,11 +1,14 @@
 
+import platform from '../utils/platform.js';
+
 export default class basePage {
 
     async open () {
         // TODO need to move url to config file
         await browser.url('https://www.cheapflights.com.au/');
-        await browser.maximizeWindow();
-        await this.waitForDocumentToLoad
+        const isMobile = platform.isMobile()
+        if(!isMobile){ await browser.maximizeWindow()}
+        await this.waitForDocumentToLoad()
     }
 
     //  need to move this method to utils file

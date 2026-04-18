@@ -1,6 +1,7 @@
 import BasePage from '../pageObjects/base.page.js';
 import pageActions from '../utils/page.actions.js';
 
+
 class HomePage extends BasePage {
     get cheapFlightsLogo() { return $('a[aria-label="Go to the cheapflights homepage"]')}
     get signInButton() { return $('div[aria-label="Sign in"]')}  
