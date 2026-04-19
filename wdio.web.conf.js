@@ -20,8 +20,12 @@ export const config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
+     //
+    // ==================
+    // Specify Test Files
+    // ==================
     specs: [
-        './test/specs/**/*.js'
+        './test/web/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -43,14 +47,29 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
+    //
+    // ============
+    // Capabilities
+    // ============
+
     capabilities: [{
-        browserName: 'chrome'
+        maxInstances: 1,
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            args: [
+                // '--headless',
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-dev-shm-usage',
+                '--window-size=1920,1080'
+            ],
+        }
     }],
 
     //
@@ -109,6 +128,16 @@ export const config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
+     //
+    // ALLURE REPORTER ADDED HERE 
+    reporters: [
+        'spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: false,
+            disableWebdriverScreenshotsReporting: false,
+        }]
+    ],
     
     //
     // The number of times to retry the entire specfile when it fails as a whole
@@ -123,7 +152,7 @@ export const config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    // reporters: ['spec'],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
