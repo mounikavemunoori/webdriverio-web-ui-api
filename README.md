@@ -21,10 +21,10 @@ Created the three different configs for api , web and mobile tests
 
  An Android emulator or real device
 
- Hybrid apps- chrome://inspect/#devices (to find locator on web) for android
+mobile debugging note- chrome://inspect/#devices (to find locator on web) for android
 
  Xcode (for iOS Simulator)
- ```
+ ``` 
 
 # WEB
 
@@ -36,9 +36,9 @@ node -v
 ## Step 2: Create a new project
 Create a new directory for your project and navigate to it in your terminal.
 
-## Step3: Clone the code from Repo then change directory use below command
+## Step 3: Clone the repositoryand
 ```
-cd Webdriverio-web-ui-api
+Then navigate into the project
 ```
 ## Step4: How to setup:
 Clone the project and run below command to install the packages
