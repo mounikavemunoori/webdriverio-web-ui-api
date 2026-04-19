@@ -34,7 +34,7 @@ class HomePage extends BasePage {
     }
 
     async waitUntilModalWelComeTextDisplayed() {
-        return await pageActions.isElementDisplayed(this.modalWelcomeText)
+        return await pageActions.waitForElementDisplayed(this.modalWelcomeText)
     }
 
     async getModalText() {
