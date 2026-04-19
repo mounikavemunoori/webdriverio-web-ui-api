@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//div[contains(text(), \"Select this date\") or contains(text(), \"Select these dates\")]"
+}
