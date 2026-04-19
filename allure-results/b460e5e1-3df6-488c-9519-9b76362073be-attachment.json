@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//div[contains(@aria-label, 'June 16 2026')]"
+}

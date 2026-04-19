@@ -1,0 +1,4 @@
+{
+  "using": "css selector",
+  "value": "input[aria-label=\"Destination location\"]"
+}

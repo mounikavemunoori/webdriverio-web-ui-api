@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//div[@aria-label=\"Flight origin input\"] | //div[@aria-label=\"Flight origin input\"]//input"
+}

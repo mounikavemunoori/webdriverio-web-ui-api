@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "(//*[@aria-label=\"Close\" and @aria-disabled=\"false\"])[2]"
+}

@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//*[contains(text(),\"direct\") or contains(text(),\"h \") or contains(text(),\"from $\")]"
+}
