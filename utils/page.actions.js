@@ -75,19 +75,6 @@ class PageActions {
         return await element.getText()
     }
 
-    //  /**
-    //  * Waits for an element to be clickable
-    //  * @param {WebdriverIO.Element} element
-    //  * @returns {Promise<void>}
-    //  */
-    // async waitForElementClickable(element) {
-    //     await element.waitForClickable({
-    //         timeout: browser.options.waitforTimeout
-    //     })
-
-        
-    // }
-
      /**
      * Waits for an element to be clickable
      * @param {WebdriverIO.Element} element
@@ -112,25 +99,6 @@ class PageActions {
     async setInputField(element, value) {
         await element.waitForClickable();
         await element.setValue(value);
-    }
-
-    /**
- * Gets date format
- * @param year
- * @param month
- * @param date
- * @returns {Promise<string> | string}
- */
-    async datePicker(year, month, date){
-        // Define the desired date
-        const selectedDate = new Date(year, month, date); // September is 8, because months are 0-indexed in JavaScript
-
-        // Format the date as "Thu Sep 26 2024"
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        const formattedDate = selectedDate.toLocaleDateString('en-US', options).replace(/,/g, '');
-
-        console.log(formattedDate); // Output: Thu Sep 26 2024
-        return formattedDate
     }
 
     /**
@@ -168,11 +136,20 @@ class PageActions {
             }
         );
     }
-
+    /**
+     * 
+     * @@param {WebdriverIO.Element} element
+     * @param {*} property  attributes of element like aria-label, claass
+     * @returns 
+     */
     async getElementCSSProperty(element, property) {
         return await element.getAttribute(property);
     }
 
+    /**
+     * Switching to child window
+     * @param {*} parentWindow 
+     */
     async switchToChildWindow(parentWindow){
         const allWindows = await browser.getWindowHandles();
         if(allWindows.length > 1){
@@ -196,12 +173,38 @@ class PageActions {
         await element.waitForDisplayed()
         await element.moveTo()
     }
-
+    /**
+     * Performs Scroll down by 500 pixels
+     * @param {*} pixel 
+     */
     async scrollToPixel(pixel=500){
         await browser.execute(() => {
             window.scrollBy(0, 500); // Scroll down by 500 pixels
         });
     } 
+
+    /**
+     * Usage:Utility to generate formatted date string.
+     *
+     * getFormattedDate()
+     * "April 19 2026"
+     *
+     * getFormattedDate(1)
+     * "April 20 2026"
+     *
+     * Example:
+     * const date = getFormattedDate(3);
+     * console.log(date);
+    */
+    async getFormattedDate(daysToAdd = 0) {
+        const date = new Date();
+        date.setDate(date.getDate() + daysToAdd);
+
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month} ${day} ${year}`;
+    }
 }
 
 export default new PageActions()

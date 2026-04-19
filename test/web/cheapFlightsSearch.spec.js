@@ -8,14 +8,16 @@ describe('Web - Cheap Flights Search', async()=> {
 
     beforeEach(async() => {
         await homePage.openCheapFlightsHomePage(); 
-        parentWindow = await browser.getWindowHandle();  
+        parentWindow = await browser.getWindowHandle()
     })
 
     it('TC01 - Verify user can search flights with valid inputs', async()=>{
-        await searchPage.enterDepartureLocation('Adelaide');
-        await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('May 11 2026');
-        await searchPage.selectReturnDate('May 14 2026');
+        await searchPage.enterDepartureLocation('Adelaide')
+        await searchPage.enterDestinationLocation('Sydney')
+        const startDate = await pageActions.getFormattedDate(1) // today
+        const endDate = await pageActions.getFormattedDate(10) // +10 days
+        await searchPage.selectDepartureDate(startDate)
+        await searchPage.selectReturnDate(endDate)
         await searchPage.clickSearchButton();
         // Handle new tab if search results open in a new tab or same tab based on application behavior
         await pageActions.switchToChildWindow(parentWindow);
@@ -30,10 +32,12 @@ describe('Web - Cheap Flights Search', async()=> {
     })
 
     it('TC02 - Verify search works with travellers selection', async()=>{
-         await searchPage.enterDepartureLocation('Adelaide');
-        await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('May 11 2026');
-        await searchPage.selectReturnDate('May 14 2026');
+        await searchPage.enterDepartureLocation('Adelaide')
+        await searchPage.enterDestinationLocation('Sydney')
+        const startDate = await pageActions.getFormattedDate(1)
+        const endDate = await pageActions.getFormattedDate(10)
+        await searchPage.selectDepartureDate(startDate)
+        await searchPage.selectReturnDate(endDate);
         await searchPage.clickOnAdditionalTravelers();
         await searchPage.incrementTravellersCount('Adults', 3);
         await searchPage.clickSearchButton();

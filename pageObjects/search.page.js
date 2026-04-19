@@ -43,6 +43,7 @@ class SearchPage {
         await pageActions.clickElement(this.selectAirport(location));
     }
 
+
     async clickOnToDestinationInputClearButton() {
          if(await pageActions.isElementDisplayed(this.toDestinationInputClearButton)) {
             await pageActions.clickElement(this.toDestinationInputClearButton);
@@ -59,6 +60,10 @@ class SearchPage {
     async selectDepartureDate(date) {
         await pageActions.clickElement(this.departureDateInput)
         await pageActions.clickElement(this.selectDate(date))
+    }
+
+    async clickOnDepartureDateInput(){
+         await pageActions.clickElement(this.departureDateInput)
     }
 
     async selectReturnDate(date) {
