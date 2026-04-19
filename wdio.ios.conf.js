@@ -70,8 +70,7 @@ export const config = {
             'appium:deviceName':'iPhone 16 Plus',
             'appium:platformVersion': '18.0', 
             'appium:automationName': "XCUITest",
-            'appium:browserName': 'Safari',
-            'appium:noReset': true,
+            'appium:browserName': 'Safari'
         }
     ],
 

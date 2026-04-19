@@ -70,10 +70,7 @@ export const config = {
             'appium:deviceName':'emulator-5554',
             'appium:platformVersion': '16.0', 
             'appium:automationName': "UiAutomator2",
-             browserName: 'Chrome',
-             // IMPORTANT (stability)
-            'appium:newCommandTimeout': 240,
-            'appium:autoGrantPermissions': true,
+             browserName: 'Chrome'
         }
     ],
 

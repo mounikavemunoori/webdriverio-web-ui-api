@@ -6,7 +6,6 @@ class HomePage extends BasePage {
     get cheapFlightsLogo() { return $('a[aria-label="Go to the cheapflights homepage"]')}
     get signInButton() { return $('div[aria-label="Sign in"]')}  
     get modalWelcomeText() { return $('.unified-login h1')} 
-    // get modalPopup() { return $$('.unified-login')}
     get modalText() { return $('.unified-login p') }
     get modalCloseButton() { return $('[role="dialog"] button[aria-label="Close"]')}
     loginOptions() { return $$('.unified-login button') }
@@ -60,11 +59,7 @@ class HomePage extends BasePage {
     async closeLoginModal() {
         await this.safeClick(this.modalCloseButton)
     }
-
-    // async modalsCount() {
-    //     return await this.modalPopup.length;
-    // }
-
+    
     async safeClick(element) {
         await pageActions.waitForDocumentToLoad()
         await browser.waitUntil(

@@ -49,4 +49,4 @@ class APIUtils {
       }
 }
 
-export default new APIUtils;
+export default new APIUtils();

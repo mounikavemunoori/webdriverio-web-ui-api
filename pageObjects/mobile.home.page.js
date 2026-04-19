@@ -5,7 +5,6 @@ class MobileHomePage {
     get downloadPrompt () { return $('#appDownloadPrompt')}
 
     async isDownloadAppPromptDisplayed() {
-        await browser.pause(5000)
          try {
             await pageActions.waitForElementDisplayed(this.downloadPrompt)
          } catch(e) {

@@ -1,6 +1,6 @@
 # WebDriverIoProject
  This projec supports for mobile, web, and api automation.
- To implement the web, api and mobile automation scripts , created the separate folder under tests folder
+ To implement the web, api and mobile automation scripts , created the separate folder under test folder
  ```
  test
      web
@@ -90,12 +90,18 @@ Make sure before running the mobile test cases, need to start the appium server 
  appium server --allow-cors
 ```
 
+### To execute the Android test cases
 ```
 npx wdio run .\wdio.android.config.js
 ```
+### To execute the ios test cases
+
+```
+npx wdio run .\wdio.ios.config.js
+```
 
 # specific spec / test file
-npx wdio run .\wdio.android.config.js --spec .\tests\mobile\iDVerse.spec.js
+npx wdio run .\wdio.android.config.js --spec .\tests\mobile\cheapFlightsHomePage.spec.js
 
 # specific suite / test suite
 ```
