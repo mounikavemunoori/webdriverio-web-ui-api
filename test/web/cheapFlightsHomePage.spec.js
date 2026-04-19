@@ -61,6 +61,7 @@ describe('Web - Cheap flights Home Page', ()=>{
     it('TC07 - should close login modal properly', async () => {
 
         await homePage.clickSignInButton();
+        await homePage.getModalWelcomeText()
         await homePage.closeLoginModal();
 
         const isLoginOptionDisplayed = await homePage.isLoginOptionDisplayed('Google');

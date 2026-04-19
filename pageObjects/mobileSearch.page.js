@@ -114,9 +114,7 @@ class MobileSearchPage {
         await this.waitForTravellers()
         const el = await $('svg[aria-label*="travellers"]');
         const value = await el.getAttribute('aria-label');
-
-        console.log(value); // "3 travellers"
-        // return await pageActions.getElementText(this.travelerscount)
+        console.log(value); // "3 travellers
         return value
     }
 

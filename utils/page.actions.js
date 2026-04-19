@@ -71,18 +71,36 @@ class PageActions {
      * @returns {Promise<string>}
      */
     async getElementText(element) {
+        await this.waitForElementDisplayed(element)
         return await element.getText()
     }
+
+    //  /**
+    //  * Waits for an element to be clickable
+    //  * @param {WebdriverIO.Element} element
+    //  * @returns {Promise<void>}
+    //  */
+    // async waitForElementClickable(element) {
+    //     await element.waitForClickable({
+    //         timeout: browser.options.waitforTimeout
+    //     })
+
+        
+    // }
 
      /**
      * Waits for an element to be clickable
      * @param {WebdriverIO.Element} element
      * @returns {Promise<void>}
      */
-    async waitForElementClickable(element) {
-        await element.waitForClickable({
-            timeout: browser.options.waitforTimeout
-        })
+    async waitForElementClickable(element, timeout = browser.options.waitforTimeout) {
+        await browser.waitUntil(
+            async () => await element.isClickable(),
+            {
+                timeout,
+                timeoutMsg: 'Element not clickable'
+            }
+        );
     }
 
     /**

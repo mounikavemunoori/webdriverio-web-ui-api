@@ -1,4 +1,5 @@
 export const config = {
+     baseUrl: 'https://www.cheapflights.com.au/',
     //
     // ====================
     // Runner Configuration

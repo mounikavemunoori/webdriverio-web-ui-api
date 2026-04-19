@@ -26,13 +26,9 @@ class HomePage extends BasePage {
     }
 
     async clickSignInButton() {
-        // TODO 
-        await browser.pause(10000)
-        await pageActions.waitForElementClickable(this.signInButton);
-        await browser.pause(10000)
-        await pageActions.clickElement(this.signInButton);
-
+        await this.safeClick(this.signInButton)
     }
+
     async getModalWelcomeText() {
         return await pageActions.getElementText(this.modalWelcomeText)
     }
@@ -58,11 +54,33 @@ class HomePage extends BasePage {
     }
 
     async closeLoginModal() {
-        await pageActions.clickElement(this.modalCloseButton);
+        await this.safeClick(this.modalCloseButton)
     }
 
     async modalsCount() {
         return await this.modalPopup.length;
+    }
+
+    async safeClick(element) {
+        await pageActions.waitForDocumentToLoad()
+        await browser.waitUntil(
+            async () => await element.isDisplayed(),
+                    {
+                        timeout: browser.options.waitforTimeout,
+                        interval: 500,
+                        timeoutMsg: `Element not displayed: ${element.selector}`
+                }
+        );
+        await browser.waitUntil(
+            async () => await element.isClickable(),
+                    {
+                        timeout: browser.options.waitforTimeout,
+                        interval: 500,
+                        timeoutMsg: `Element not clickable: ${element.selector}`
+                }
+        );
+        await element.scrollIntoView();
+        await element.click();
     }
 }
 

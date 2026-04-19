@@ -14,8 +14,8 @@ describe('Web - Cheap Flights Search Results', async()=>{
     it('TC01 - Verify user can search flights with valid inputs', async()=>{
         await searchPage.enterDepartureLocation('Adelaide');
         await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('April 25 2026');
-        await searchPage.selectReturnDate('April 30 2026');
+        await searchPage.selectDepartureDate('May 11 2026');
+        await searchPage.selectReturnDate('May 14 2026');
         await searchPage.clickSearchButton();
         // Handle new tab if search results open in a new tab or same tab based on application behavior
         await pageActions.switchToChildWindow(parentWindow);
@@ -32,8 +32,8 @@ describe('Web - Cheap Flights Search Results', async()=>{
     it('TC02 - Verify each result contains price and airline details', async()=>{
         await searchPage.enterDepartureLocation('Adelaide');
         await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('April 25 2026');
-        await searchPage.selectReturnDate('April 30 2026');
+        await searchPage.selectDepartureDate('May 11 2026');
+        await searchPage.selectReturnDate('May 14 2026');
         await searchPage.clickSearchButton();
         // Handle new tab if search results open in a new tab or same tab based on application behavior
         await pageActions.switchToChildWindow(parentWindow);
@@ -47,13 +47,12 @@ describe('Web - Cheap Flights Search Results', async()=>{
         assert.strictEqual(priceDetailsCount, resultsCount, 'Not all search results have price details');
         console.log(`All ${priceDetailsCount} search results have price details`);
 
-        const priceElements = await searchPage.priceDetails;
-        for (let price of priceElements) {
-            assert.isTrue(await price.isDisplayed(), 'Price not displayed');
-            assert.notEqual(await price.getText(), '', 'Price is empty');
-            console.log(`Price displayed: ${await price.getText()}`);
+        const prices = await searchPage.getPriceDetails();
+        assert.isTrue(prices.length > 0, 'No prices found');
+        for (let price of prices) {
+            assert.notEqual(price.trim(), '', 'Price is empty');
+            console.log(`Price displayed: ${price}`);
         }
-
         // swith back to parent window based on application behavior, if search results open in same tab, this step can be skipped
         await browser.switchToWindow(parentWindow)
     })
@@ -61,8 +60,8 @@ describe('Web - Cheap Flights Search Results', async()=>{
     it('TC03 - Verify no result contains empty or invalid price', async()=>{
         await searchPage.enterDepartureLocation('Adelaide');
         await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('April 25 2026');
-        await searchPage.selectReturnDate('April 30 2026');
+        await searchPage.selectDepartureDate('May 11 2026');
+        await searchPage.selectReturnDate('May 14 2026');
         await searchPage.clickSearchButton();
         // Handle new tab if search results open in a new tab or same tab based on application behavior
         await pageActions.switchToChildWindow(parentWindow);

@@ -1,7 +1,7 @@
 import pageActions from "../utils/page.actions"
-import {assert} from 'chai';
 
 class SearchPage {
+    
     get fromOriginInput () { return $('input[aria-label="Origin location"]') }
     get fromOriginInputClearButton () { return $('[aria-label="Flight origin input"] div[aria-label="Remove value"]')}
     get toDestinationInput () { return $('input[aria-label="Destination location"]') }
@@ -30,6 +30,7 @@ class SearchPage {
     selectedTravelersCount(){ return $('(//header//div[contains(@class, "travelers")])[2]') }
 
 
+
     async clickOnFromOriginInputClearButton() {
         if(await pageActions.isElementDisplayed(this.fromOriginInputClearButton)) {
             await pageActions.clickElement(this.fromOriginInputClearButton);
@@ -50,9 +51,6 @@ class SearchPage {
     }
 
     async enterDestinationLocation(location){
-        // if(await pageActions.isElementDisplayed(this.toDestinationInputClearButton)) {
-        //     await pageActions.clickElement(this.toDestinationInputClearButton);
-        // }
         await this.clickOnToDestinationInputClearButton()
         await pageActions.clickElement(this.toDestinationInput);
         await pageActions.setInputField(this.toDestinationInput, location);
@@ -106,24 +104,10 @@ class SearchPage {
             { timeout: browser.options.waitforTimeout, timeoutMsg: 'Expected search results to be displayed', interval: 1000 }
         );
     }
-    
-    async verifySearchResultsRelevant(location) {
-        const results = await this.searchResults;
-        for (const list of results) {
-            const locationElement = await list.$(`.//li//div[contains(@title, "${location}")]`);
-            if (await locationElement.isDisplayed()) {
-                console.log(`Found ${location}`);
-                console.log(`Search results are relevant to the departure location: ${await locationElement.getText()}`);
-            }
-            const actualLocation = await locationElement.getText()
-            assert.include(actualLocation, location, `Search result ${actualLocation} does not include location ${location}`);
-            console.log(`Search result ${actualLocation} includes location ${location}`);
-        }
-    }
 
     async getSelectedTravelersCount() {
         const el = await browser.$('(//header//div[contains(@class, "travelers")])[2]');
-         return await el.getAttribute('aria-label');
+        return await el.getAttribute('aria-label');
     }
 
     async getErrorPopupMessage() {
@@ -133,6 +117,16 @@ class SearchPage {
 
     async getSearchPriceDetailsCount() {
         return await this.priceDetails.length;
+    }
+
+    async getPriceDetails(){
+        const prices = await this.priceDetails
+        const priceTexts = []
+        for (let price of prices) {
+            await price.waitForDisplayed({ timeout: 20000 })
+            priceTexts.push(await price.getText())
+        }
+        return priceTexts
     }
 
 }

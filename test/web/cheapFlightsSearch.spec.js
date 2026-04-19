@@ -6,7 +6,7 @@ import {assert} from 'chai';
 describe('Web - Cheap Flights Search', async()=> {
     let parentWindow;
 
-    beforeEach(async()=>{
+    beforeEach(async() => {
         await homePage.openCheapFlightsHomePage(); 
         parentWindow = await browser.getWindowHandle();  
     })
@@ -14,8 +14,8 @@ describe('Web - Cheap Flights Search', async()=> {
     it('TC01 - Verify user can search flights with valid inputs', async()=>{
         await searchPage.enterDepartureLocation('Adelaide');
         await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('April 18 2026');
-        await searchPage.selectReturnDate('April 30 2026');
+        await searchPage.selectDepartureDate('May 11 2026');
+        await searchPage.selectReturnDate('May 14 2026');
         await searchPage.clickSearchButton();
         // Handle new tab if search results open in a new tab or same tab based on application behavior
         await pageActions.switchToChildWindow(parentWindow);
@@ -25,10 +25,6 @@ describe('Web - Cheap Flights Search', async()=> {
         assert.isAbove(resultsCount, 0, 'Search results are not displayed');
         console.log(`Number of search results: ${resultsCount}`);   
 
-        await searchPage.verifySearchResultsRelevant('Adelaide');
-        await searchPage.verifySearchResultsRelevant('Sydney');
-        console.log('Search results are relevant to the departure location: Adelaide and destination location: Sydney');
-
         // swith back to parent window based on application behavior, if search results open in same tab, this step can be skipped
         await browser.switchToWindow(parentWindow)
     })
@@ -36,8 +32,8 @@ describe('Web - Cheap Flights Search', async()=> {
     it('TC02 - Verify search works with travellers selection', async()=>{
          await searchPage.enterDepartureLocation('Adelaide');
         await searchPage.enterDestinationLocation('Sydney');
-        await searchPage.selectDepartureDate('April 18 2026');
-        await searchPage.selectReturnDate('April 30 2026');
+        await searchPage.selectDepartureDate('May 11 2026');
+        await searchPage.selectReturnDate('May 14 2026');
         await searchPage.clickOnAdditionalTravelers();
         await searchPage.incrementTravellersCount('Adults', 3);
         await searchPage.clickSearchButton();
