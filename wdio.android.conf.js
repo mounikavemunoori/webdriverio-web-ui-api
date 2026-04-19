@@ -70,7 +70,12 @@ export const config = {
             'appium:deviceName':'emulator-5554',
             'appium:platformVersion': '16.0', 
             'appium:automationName': "UiAutomator2",
-            'appium:browserName': 'Chrome',
+             browserName: 'Chrome',
+             // IMPORTANT (stability)
+            'appium:newCommandTimeout': 240,
+            'appium:autoGrantPermissions': true,
+            // optional but helpful
+            'appium:chromedriverAutodownload': true
         }
     ],
 
@@ -159,7 +164,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
 
     //

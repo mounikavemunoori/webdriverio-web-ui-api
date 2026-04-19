@@ -14,7 +14,15 @@ describe('Mobile - Cheap Flights Search', async()=> {
         }
     })
 
-    it('TC01 - Verify user can search flights with valid inputs', async()=>{
+    it('TC01 - Verify the error handling/messages without entering the required inputs in the search', async()=>{
+        await searchPage.clickSearchButton();
+        const actualErrors = await mobileSearchPage.getMissingFieldsErrors();
+        assert.ok(actualErrors.includes("Please enter a 'To' airport."));
+        assert.ok(actualErrors.includes("Please enter a valid 'Depart' date."));
+        assert.ok(actualErrors.includes("Please enter a valid 'Return' date. If you wish to search for a one-way flight, please click the 'One-way' button above."));
+    })
+
+    it('TC02 - Verify user can search flights with valid inputs', async()=>{
         await mobileSearchPage.enterFromWhereLocation('Adelaide');
         await mobileSearchPage.enterToWhereLocation('Sydney');
         await mobileSearchPage.clickOnSelectDates()
@@ -30,7 +38,7 @@ describe('Mobile - Cheap Flights Search', async()=> {
         console.log(`Number of search results: ${resultsCount}`);   
     })
 
-    it('TC02 - Verify search works with travellers selection', async()=>{
+    it('TC03 - Verify search works with travellers selection', async()=>{
         await mobileSearchPage.enterFromWhereLocation('Adelaide');
         await mobileSearchPage.enterToWhereLocation('Sydney');
         await mobileSearchPage.clickOnSelectDates()
@@ -53,12 +61,6 @@ describe('Mobile - Cheap Flights Search', async()=> {
         console.log(`Selected travelers count ${selectedTravelersText} includes expected count 3`);
     })
 
-    it('TC03 - Verify the error handling/messages without entering the required inputs in the search', async()=>{
-        await searchPage.clickSearchButton();
-        const actualErrors = await mobileSearchPage.getMissingFieldsErrors();
-        assert.ok(actualErrors.includes("Please enter a 'To' airport."));
-        assert.ok(actualErrors.includes("Please enter a valid 'Depart' date."));
-        assert.ok(actualErrors.includes("Please enter a valid 'Return' date. If you wish to search for a one-way flight, please click the 'One-way' button above."));
-    })
+  
 
 })

@@ -16,8 +16,11 @@ class MobileSearchPage {
     }
     get travellerOption() { return $('//div[contains(@id,"traveler-type")]')}
     get saveButton() { return $('//div[contains(text(), "Save")]')}
-    get travelerscount() { return $('[aria-label*="travellers"] + span')}
+    get travelerscount() { return $('svg[aria-label*="travellers"]')}
+    get tavellersText() { return $('svg[aria-label*="traveller') }
     get errorsList() { return $$('//div[contains(@class, "error")]')}
+    get searchResultsList () { return $$('//*[contains(text(),"direct") or contains(text(),"h ") or contains(text(),"from $")]')}
+
 
     async clickOnFromOriginInput () {
         await pageActions.clickElement(this.fromOriginInput)
@@ -65,24 +68,15 @@ class MobileSearchPage {
 
     async getSearchResultsCount() {
         await this.waitForResults()
-        const results = await $$('//*[contains(text(),"direct") or contains(text(),"h ") or contains(text(),"from $")]')
-        console.log('Total results found:', await results.length);
-        if (results.length === 0) {
-        throw new Error('No flight results found');
+        console.log('Total results found:', await this.searchResultsList.length);
+        if (this.searchResultsList.length === 0) {
+            throw new Error('No flight results found');
         }
-        // console.log('--- Flight Results ---');
-
-        // for (let i = 0; i < results.length; i++) {
-        //     const text = await results[i].getText();
-        //     console.log(`Result ${i + 1}:`, text);
-        // }
-
-        return await results.length;
+        return await this.searchResultsList.length
     }
 
     // --- Wait for RESULTS STATE (NOT homepage text) ---
     async waitForResults() {
-        console.log("search results-->")
         await browser.waitUntil(
             async () => {
                 const text = await $('body').getText();
@@ -112,9 +106,8 @@ class MobileSearchPage {
 
     async getTravelersCount() {
         await this.waitForTravellers()
-        const el = await $('svg[aria-label*="travellers"]');
-        const value = await el.getAttribute('aria-label');
-        console.log(value); // "3 travellers
+        const el = await this.travelerscount
+        const value = await el.getAttribute('aria-label')
         return value
     }
 
@@ -122,8 +115,7 @@ class MobileSearchPage {
     async waitForTravellers() {
         await browser.waitUntil(
             async () => {
-                const el = await $('svg[aria-label*="traveller"]');
-                return await el.isExisting();
+                return await this.tavellersText.isExisting();
             },
             {
                 timeout: 60000,
@@ -134,10 +126,10 @@ class MobileSearchPage {
     }
 
     async getMissingFieldsErrors() {
+        await pageActions.waitForElementDisplayed(this.errorsList[0])
         let errors = []
         for(let i=0;i<await this.errorsList.length;i++){
             const errorText = await pageActions.getElementText(this.errorsList[i])
-            console.log("error text", errorText)
             errors.push(errorText)
         }
         return errors
