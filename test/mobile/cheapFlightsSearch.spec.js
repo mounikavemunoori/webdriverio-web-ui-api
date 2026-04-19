@@ -61,6 +61,4 @@ describe('Mobile - Cheap Flights Search', async()=> {
         console.log(`Selected travelers count ${selectedTravelersText} includes expected count 3`);
     })
 
-  
-
 })

@@ -3,6 +3,7 @@ import mobileHomePage from '../../pageObjects/mobile.home.page.js';
 import {assert} from 'chai';   
 
 describe('Mobile - Cheap flights Home Page', async()=> {
+        
         beforeEach(async () => {
            await homePage.openCheapFlightsHomePage();
            if(await mobileHomePage.isDownloadAppPromptDisplayed()){
@@ -31,6 +32,7 @@ describe('Mobile - Cheap flights Home Page', async()=> {
 
         it('TC04 - Verify login modal displays correct description text', async () => {
                 await homePage.clickSignInButton();
+                await homePage.waitUntilModalWelComeTextDisplayed()
                 const actualText = await homePage.getModalText()
                 assert.strictEqual(
                         actualText,
@@ -40,7 +42,7 @@ describe('Mobile - Cheap flights Home Page', async()=> {
 
         it('TC05- Verify Sign In Modal shows Login options correctly', async() =>{
              await homePage.clickSignInButton();
-     
+             await homePage.waitUntilModalWelComeTextDisplayed()
              assert.isTrue(await homePage.isLoginOptionDisplayed('Google'), 'Google login option is not displayed');
              console.log(`Google login option is displayed correctly`); 
      

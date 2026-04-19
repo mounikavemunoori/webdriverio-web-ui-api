@@ -14,7 +14,7 @@ class HomePage extends BasePage {
 
 
     async openCheapFlightsHomePage() {
-        await this.open();
+        await this.open()
     }
 
     async isCheapFlightsLogoDisplayed() {
@@ -31,6 +31,10 @@ class HomePage extends BasePage {
 
     async getModalWelcomeText() {
         return await pageActions.getElementText(this.modalWelcomeText)
+    }
+
+    async waitUntilModalWelComeTextDisplayed() {
+        return await pageActions.isElementDisplayed(this.modalWelcomeText)
     }
 
     async getModalText() {

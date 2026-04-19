@@ -1,8 +1,9 @@
 import pageActions from "../utils/page.actions"
+import platform from "../utils/platform"
 import mobileHomePage from "./mobile.home.page"
 
 class MobileSearchPage {
-    get fromOriginInput() { return $('div[aria-label="Flight origin input"]') }
+    get fromOriginInput() { return $('div[aria-label="Flight origin input"]') } 
     get fromWhereInputField() { return $('input[placeholder="From?"]') }
     get toDestinationInput() { return $('div[aria-label="Flight destination input"]')}
     get toWhereInputField () { return $('input[aria-label="Destination location"]')}
@@ -11,19 +12,24 @@ class MobileSearchPage {
     selectDate(date) { return $(`//div[contains(@aria-label, '${date}')]`)}
     get selectThisDate() { return $('//div[contains(text(), "Select this date") or contains(text(), "Select these dates")]') }
     get searchResultsCount() { return $('(//div[contains(.,"results")])[1]')}
-    get firstFlightResult() {
-        return $('(//div[contains(., "from $")])[1]');
-    }
     get travellerOption() { return $('//div[contains(@id,"traveler-type")]')}
     get saveButton() { return $('//div[contains(text(), "Save")]')}
     get travelerscount() { return $('svg[aria-label*="travellers"]')}
     get tavellersText() { return $('svg[aria-label*="traveller') }
     get errorsList() { return $$('//div[contains(@class, "error")]')}
     get searchResultsList () { return $$('//*[contains(text(),"direct") or contains(text(),"h ") or contains(text(),"from $")]')}
-
+    get iosfromOriginInput() { return $('//div[@aria-label="Flight origin input"]//div[@role="button"]') } 
+    get iostoDestinationInput() { return $('div[aria-label="Flight destination input"] div[role="button"]') }
 
     async clickOnFromOriginInput () {
-        await pageActions.clickElement(this.fromOriginInput)
+        await pageActions.waitForElementClickable(this.fromOriginInput)
+        await pageActions.waitForElementDisplayed(this.fromOriginInput)
+        if(await platform.isIOS()){
+            await pageActions.clickElement(this.iosfromOriginInput)
+
+        } else {
+            await pageActions.clickElement(this.fromOriginInput)
+        } 
     }
 
     async enterFromWhereLocation (location) {
@@ -33,7 +39,11 @@ class MobileSearchPage {
     }
 
     async clickOnToDestinationInput(){
+        if(await platform.isIOS()){
+            await pageActions.clickElement(this.iostoDestinationInput)
+        } else {
         await pageActions.clickElement(this.toDestinationInput)
+        }
     }
 
     async enterToWhereLocation(location){
