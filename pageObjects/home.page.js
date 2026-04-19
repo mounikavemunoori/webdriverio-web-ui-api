@@ -1,4 +1,4 @@
-import BasePage from '../pageObjects/base.page.js';
+import BasePage from '../pageObjects/page.js';
 import pageActions from '../utils/page.actions.js';
 
 

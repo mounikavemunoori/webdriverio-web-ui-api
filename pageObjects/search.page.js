@@ -15,7 +15,6 @@ class SearchPage {
     get loadingSpinnerText() { return $('//*[contains(text(), "Loading")]')}
     get bookNowText() { return $('//div[@role="region"]//div[contains(@class, "message")]')}
     get searchResults() { return $$('//ol[contains(@class, "list")]')}
-    // get searchResults() { return $$('//div[contains(@aria-label,"Result item")]') }
     get selectedTravelersCount(){ return $('(//header//div[contains(@class, "travelers")])[2]') }
     get tootTipElement() { return $('[role="tooltip"]')}
     get errorPopup() { return $('//div[@role="dialog" and @aria-modal="true"]//div[contains(@class, "popup")]') }
