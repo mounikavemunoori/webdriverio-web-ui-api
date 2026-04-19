@@ -59,7 +59,6 @@ describe('Web - Cheap flights Home Page', ()=>{
 
     // TC07 - Modal should not reopen after closing
     it('TC07 - should close login modal properly', async () => {
-
         await homePage.clickSignInButton();
         await homePage.getModalWelcomeText()
         await homePage.closeLoginModal();

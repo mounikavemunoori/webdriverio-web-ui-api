@@ -74,8 +74,6 @@ export const config = {
              // IMPORTANT (stability)
             'appium:newCommandTimeout': 240,
             'appium:autoGrantPermissions': true,
-            // optional but helpful
-            'appium:chromedriverAutodownload': true
         }
     ],
 

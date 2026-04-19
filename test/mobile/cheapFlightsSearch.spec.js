@@ -26,8 +26,10 @@ describe('Mobile - Cheap Flights Search', async()=> {
         await mobileSearchPage.enterFromWhereLocation('Adelaide');
         await mobileSearchPage.enterToWhereLocation('Sydney');
         await mobileSearchPage.clickOnSelectDates()
-        await mobileSearchPage.selectDepartureDate('June 16 2026');
-        await mobileSearchPage.selectReturnDate('June 25 2026');
+        const startDate = await pageActions.getFormattedDate(1) // today
+        const endDate = await pageActions.getFormattedDate(10) // +10 days
+        await mobileSearchPage.selectDepartureDate(startDate);
+        await mobileSearchPage.selectReturnDate(endDate);
         await mobileSearchPage.clickOnSelectThisDate()
         await searchPage.clickSearchButton();
         await pageActions.waitForDocumentToLoad()
@@ -42,8 +44,10 @@ describe('Mobile - Cheap Flights Search', async()=> {
         await mobileSearchPage.enterFromWhereLocation('Adelaide');
         await mobileSearchPage.enterToWhereLocation('Sydney');
         await mobileSearchPage.clickOnSelectDates()
-        await mobileSearchPage.selectDepartureDate('June 16 2026');
-        await mobileSearchPage.selectReturnDate('June 25 2026');
+        const startDate = await pageActions.getFormattedDate(1) // today
+        const endDate = await pageActions.getFormattedDate(10) // +10 days
+        await mobileSearchPage.selectDepartureDate(startDate);
+        await mobileSearchPage.selectReturnDate(endDate);
         await mobileSearchPage.clickOnSelectThisDate()
         await mobileSearchPage.clickOnAddTravellersOption();
         await searchPage.incrementTravellersCount('Adults', 3);
