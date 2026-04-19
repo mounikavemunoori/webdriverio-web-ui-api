@@ -198,11 +198,10 @@ class PageActions {
     }
 
     async scrollToPixel(pixel=500){
-    await browser.execute(() => {
-        window.scrollBy(0, 500); // Scroll down by 500 pixels
-    });
-} 
-
+        await browser.execute(() => {
+            window.scrollBy(0, 500); // Scroll down by 500 pixels
+        });
+    } 
 }
 
 export default new PageActions()
